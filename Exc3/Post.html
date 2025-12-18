@@ -27,6 +27,18 @@
 
                     <form action="Post.php" method="post" class="needs-validation" novalidate>
                         <div class="mb-3">
+                            <label for="name" class="form-label">ชื่อ</label>
+                            <input id="name" type="text" name="name" class="form-control" placeholder="เช่น สมชาย ทองดี" required>
+                            <div class="invalid-feedback">กรุณากรอกชื่อ</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="dob" class="form-label">วัน/เดือน/ปีเกิด</label>
+                            <input id="dob" type="date" name="dob" class="form-control" required>
+                            <div class="invalid-feedback">กรุณาเลือกวันเกิด</div>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="weight" class="form-label">น้ำหนัก</label>
                             <div class="input-group">
                                 <input id="weight" type="number" name="weight" step="0.1" class="form-control" placeholder="เช่น 68.5" required>
