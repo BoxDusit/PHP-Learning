@@ -140,6 +140,13 @@
             <?php
             if (isset($_POST['submit'])) {
 
+                $filename = "register.txt";
+
+                if (!file_exists($filename)) {
+                    file_put_contents($filename, "w");
+                    chmod($filename, 0666);
+                }   
+
                 $fullname = $_POST['fullname'];
                 $email    = $_POST['email'];
                 $course   = $_POST['course'];
