@@ -91,9 +91,7 @@ $introduction = "สวัสดีครับ ผมชื่อดุสิ�
 
     <div class="container">
 
-        <img class="profile-img"
-            src="https://scontent-bkk1-2.xx.fbcdn.net/v/t39.30808-6/588316003_1223854956307849_8002022204586851107_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeE76FY1F7JGGvlTseC203P5XRlktJcjh0pdGWS0lyOHSkxG3RNY83ezMwczpWgVYqIxzUFO39GNTR5-KQSrmP-s&_nc_ohc=vDMg_uYrSwcQ7kNvwHDzuKI&_nc_oc=Adk0zSyeD2IUDrDy8HcG2oJ-XXfslKZrjwMDl2vGGb4NV84ERY2Ix-e6DJZfuwaDtkc&_nc_zt=23&_nc_ht=scontent-bkk1-2.xx&_nc_gid=09M_dT0nX-OtdjggwxhQcA&oh=00_AfhG3UHHWIlI2RAaIeb3pg6B6X4LQ4PUgSLK_i4g7fVykw&oe=692DAED3"
-            alt="">
+        <img src="./img/profile.png" class="profile-img">
 
         <h3>ข้อมูลนักศึกษา</h3>
 
