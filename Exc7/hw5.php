@@ -70,70 +70,59 @@ if (isset($_POST['fullname'])) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>โปรแกรมแยกชื่อ-สกุล</title>
     <style>
-        :root {
-            --bg: #f5f7fb;
-            --card: #fff;
-            --accent: #3b6ef6;
-            --muted: #6b7280;
-        }
-
         body {
             margin: 0;
-            font-family: "Noto Sans Thai", "Segoe UI", Roboto, Arial, sans-serif;
-            background: var(--bg);
-            color: #111;
+            background: #f5f7fb;
+            font-family: "Noto Sans Thai", Arial, sans-serif;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            padding: 24px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 720px;
         }
 
         .card {
-            background: var(--card);
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+            width: 720px;
+            background: #fff;
+            border-radius: 14px;
+            padding: 28px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
         }
 
         h1 {
             margin: 0 0 6px;
-            color: var(--accent);
-            font-size: 20px;
+            color: #3b6ef6;
+            font-size: 22px;
         }
 
-        .lead {
-            margin: 0 0 18px;
-            color: var(--muted);
+        .desc {
+            margin-bottom: 22px;
+            color: #6b7280;
             font-size: 14px;
         }
 
-        .form-row {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            margin-bottom: 12px;
+        .row {
+            margin-bottom: 16px;
         }
 
         label {
-            min-width: 110px;
-            color: var(--muted);
+            display: block;
+            margin-bottom: 6px;
+            color: #6b7280;
             font-size: 14px;
         }
 
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
         input[type="text"] {
-            flex: 1;
-            padding: 10px 12px;
-            border: 1px solid #e6e9ef;
-            border-radius: 8px;
+            width: 100%;
+            padding: 11px 12px;
+            border-radius: 10px;
+            border: 1px solid #dbe1f1;
             font-size: 15px;
         }
 
@@ -142,65 +131,59 @@ if (isset($_POST['fullname'])) {
         }
 
         button {
-            background: var(--accent);
+            padding: 0 18px;
+            background: #3b6ef6;
             color: #fff;
-            border: 0;
-            padding: 10px 14px;
-            border-radius: 8px;
-            cursor: pointer;
+            border: none;
+            border-radius: 10px;
             font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
         }
 
         .result {
-            margin-top: 16px;
+            margin-top: 24px;
             border-top: 1px solid #eef2ff;
-            padding-top: 16px;
-        }
-
-        .small {
-            font-size: 13px;
-            color: var(--muted);
-        }
-
-        @media (max-width:480px) {
-            .form-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            label {
-                min-width: 0;
-            }
+            padding-top: 20px;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="card">
-            <h1>โปรแกรมแยกชื่อ-สกุล</h1>
-            <p class="lead small">กรอกชื่อ-สกุลแบบเต็ม (รวมคำนำหน้า ถ้ามี) แล้วกดปุ่มเพื่อแยก</p>
 
-            <form method="post" novalidate>
-                <div class="form-row">
-                    <label for="fullname">ชื่อ-สกุล</label>
-                    <input id="fullname" type="text" name="fullname" placeholder="เช่น นายสมชาย ใจดี" value="<?= isset(
-                                                                                                                    $_POST['fullname']
-                                                                                                                ) ? htmlspecialchars($_POST['fullname'], ENT_QUOTES, 'UTF-8') : '' ?>">
+    <div class="card">
+        <h1>โปรแกรมแยกชื่อ-สกุล</h1>
+        <div class="desc">กรอกชื่อ-สกุลแบบเต็ม (รวมคำนำหน้า ถ้ามี) แล้วกดปุ่มเพื่อแยก</div>
+
+        <form method="post">
+            <div class="row">
+                <label>ชื่อ-สกุล</label>
+                <div class="input-group">
+                    <input type="text" name="fullname" placeholder="เช่น นายสมชาย ใจดี"
+                        value="<?= isset($_POST['fullname']) ? htmlspecialchars($_POST['fullname'], ENT_QUOTES, 'UTF-8') : '' ?>">
                     <button type="submit">แยก</button>
                 </div>
-            </form>
+            </div>
+        </form>
 
-            <?php if (!empty($data)) : ?>
-                <div class="result">
-                    <div class="form-row"><label>คำนำหน้า</label><input type="text" readonly value="<?= htmlspecialchars($data['prefix'], ENT_QUOTES, 'UTF-8') ?>"></div>
-                    <div class="form-row"><label>ชื่อ</label><input type="text" readonly value="<?= htmlspecialchars($data['firstname'], ENT_QUOTES, 'UTF-8') ?>"></div>
-                    <div class="form-row"><label>สกุล</label><input type="text" readonly value="<?= htmlspecialchars($data['lastname'], ENT_QUOTES, 'UTF-8') ?>"></div>
-                </div>
-            <?php endif; ?>
+        <div class="result">
+            <div class="row">
+                <label>คำนำหน้า</label>
+                <input type="text" readonly value="<?= htmlspecialchars($data['prefix'], ENT_QUOTES, 'UTF-8') ?>">
+            </div>
 
+            <div class="row">
+                <label>ชื่อ</label>
+                <input type="text" readonly value="<?= htmlspecialchars($data['firstname'], ENT_QUOTES, 'UTF-8') ?>">
+            </div>
+
+            <div class="row">
+                <label>สกุล</label>
+                <input type="text" readonly value="<?= htmlspecialchars($data['lastname'], ENT_QUOTES, 'UTF-8') ?>">
+            </div>
         </div>
     </div>
+
 </body>
 
 </html>
