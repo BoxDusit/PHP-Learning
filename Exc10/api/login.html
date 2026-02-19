@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ - CatBreeds</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            /* พื้นหลังไล่สีโทนพาสเทลนุ่มนวล */
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar Style */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Login Card Customization */
+        .login-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            max-width: 500px;
+            width: 100%;
+            padding: 2.5rem;
+            border-radius: 25px;
+            background: #ffffff;
+            /* เพิ่มเงาให้ดูมีมิติ */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .brand-icon {
+            font-size: 3rem;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 15px;
+            border: 2px solid #f1f3f5;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: none;
+            background-color: #f8f9ff;
+        }
+
+        .btn-login {
+            border-radius: 12px;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+        }
+
+        .input-group-text {
+            background: none;
+            border: 2px solid #f1f3f5;
+            border-right: none;
+            border-radius: 12px 0 0 12px;
+            color: #adb5bd;
+        }
+
+        .form-control.has-icon {
+            border-left: none;
+            border-radius: 0 12px 12px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.php">
+                <i class="bi bi-cat-fill me-2"></i>Cat Catalog
+            </a>
+            <a href="index.php" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                <i class="bi bi-arrow-left me-1"></i> กลับหน้าหลัก
+            </a>
+        </div>
+    </nav>
+    
+    <div class="login-section">
+        <div class="login-card ">
+            <div class="text-center mb-4">
+                
+                <h2 class="fw-bold">ยินดีต้อนรับ</h2>
+                <p class="text-muted">กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label class="form-label fw-bold small">ชื่อผู้ใช้งาน</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" id="username" class="form-control has-icon" placeholder="Username" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold small">รหัสผ่าน</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" id="password" class="form-control has-icon" placeholder="Password" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn btn-primary w-100 btn-login mb-3">
+                    <span id="btnText">เข้าสู่ระบบ</span>
+                </button>
+            </form>
+            
+            <div class="text-center mt-3">
+                <small class="text-muted">สำหรับเจ้าหน้าที่ดูแลระบบเท่านั้น</small>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // เปลี่ยนสถานะปุ่มขณะโหลด
+            const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            btn.disabled = true;
+            btnText.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>กำลังตรวจสอบ...';
+
+            try {
+                const response = await fetch('login_process.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: document.getElementById('username').value,
+                        password: document.getElementById('password').value
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    if (result.role === 'admin') {
+                        window.location.href = 'catManage.php';
+                    } else {
+                        window.location.href = 'index.php';
+                    }
+                } else {
+                    alert('❌ ' + result.message);
+                    btn.disabled = false;
+                    btnText.innerText = 'เข้าสู่ระบบ';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อเซิร์ฟเวอร์');
+                btn.disabled = false;
+                btnText.innerText = 'เข้าสู่ระบบ';
+            }
+        });
+    </script>
+</body>
+</html>
