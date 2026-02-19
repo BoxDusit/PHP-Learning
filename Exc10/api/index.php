@@ -146,7 +146,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const API_URL = "http://localhost/PHP-Learning/Exc10/api/product.php";
+        const API_URL = "https://hosting.udru.ac.th/~it67040233115/PHP-Learning/Exc10/api/product.php";
         let allCats = [];
         const detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
 
